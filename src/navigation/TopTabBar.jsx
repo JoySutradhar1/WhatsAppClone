@@ -10,6 +10,7 @@ const Tab = createMaterialTopTabNavigator();
 const TopTabBar = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Chats"
       screenOptions={() => ({
         tabBarActiveTintColor: Colors.tertiary,
         tabBarInactiveTintColor: Colors.secondaryColor,
