@@ -106,7 +106,7 @@ export const ChatListData = [
   },
   {
     id: 14,
-    name: 'Joy',
+    name: 'Joya',
     profile: p1,
     time: '09:02pm',
     mute: false,

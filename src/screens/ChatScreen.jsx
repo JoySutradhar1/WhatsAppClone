@@ -11,7 +11,7 @@ const ChatScreen = () => {
     <>
       <ChatHeader />
       <ImageBackground source={wp1} style={styles.wp}>
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, position: 'relative'}}>
           <ChatBody />
         </View>
         <ChatFooter />
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   container: {},
   wp: {
     // backgroundColor: '#141f13',
-    width: '100%',
-    height: '100%',
+    // width: '100%',
+    // height: '100%',
     flex: 1,
   },
 });

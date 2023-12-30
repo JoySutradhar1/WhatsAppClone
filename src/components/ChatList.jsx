@@ -1,6 +1,12 @@
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import p1 from '../assets/p1.jpg';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import {Colors} from '../theme/Colors';
 import VectorIcon from '../utils/VectorIcon';
 import {ChatListData} from '../data/ChatListData';
@@ -8,37 +14,43 @@ import {useNavigation} from '@react-navigation/native';
 
 const ChatList = () => {
   const navigation = useNavigation();
+
   const onNavigate = () => {
     navigation.navigate('ChatScreen');
   };
+
+  const renderItem = ({item}) => (
+    <TouchableOpacity onPress={onNavigate} style={styles.container}>
+      <View style={styles.chatContainer}>
+        <Image source={item.profile} style={styles.profileImg}></Image>
+        <View>
+          <Text style={styles.userName}>{item.name}</Text>
+          <Text style={styles.msg}>{item.message}</Text>
+        </View>
+      </View>
+      <View style={styles.timeNMode}>
+        <Text style={styles.timeStump}>{item.time}</Text>
+        {item.mute && (
+          <VectorIcon
+            type="MaterialCommunityIcons"
+            name="volume-variant-off"
+            size={22}
+            color={Colors.textGrey}
+          />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+
+  const keyExtractor = item => item.id.toString();
+
   return (
-    <>
-      {ChatListData.map(item => (
-        <TouchableOpacity
-          onPress={onNavigate}
-          key={item.id}
-          style={styles.container}>
-          <View style={styles.chatContainer}>
-            <Image source={item.profile} style={styles.profileImg}></Image>
-            <View>
-              <Text style={styles.userName}>{item.name}</Text>
-              <Text style={styles.msg}>{item.message}</Text>
-            </View>
-          </View>
-          <View style={styles.timeNMode}>
-            <Text style={styles.timeStump}>{item.time}</Text>
-            {item.mute && (
-              <VectorIcon
-                type="MaterialCommunityIcons"
-                name="volume-variant-off"
-                size={22}
-                color={Colors.textGrey}
-              />
-            )}
-          </View>
-        </TouchableOpacity>
-      ))}
-    </>
+    <FlatList
+      data={ChatListData}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      inverted
+    />
   );
 };
 
