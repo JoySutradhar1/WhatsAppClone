@@ -42,7 +42,6 @@ const ChatBody = () => {
 
   const flatListRef = useRef(null);
   const scrollToBottom = () => {
-    // flatListRef.current.scrollToEnd({animated: true});
     flatListRef.current?.scrollToEnd();
   };
 
@@ -62,6 +61,7 @@ const ChatBody = () => {
           name="keyboard-double-arrow-down"
           color={Colors.white}
           size={20}
+          onPress={scrollToBottom}
         />
       </View>
     </>
