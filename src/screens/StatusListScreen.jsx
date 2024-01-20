@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import MyStatus from '../components/MyStatus';
 import RecentStatus from '../components/RecentStatus';
@@ -7,11 +7,13 @@ import {Colors} from '../theme/Colors';
 
 const StatusListScreen = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}>
       <MyStatus />
       <RecentStatus />
       <ViewedStatus />
-    </View>
+    </ScrollView>
   );
 };
 

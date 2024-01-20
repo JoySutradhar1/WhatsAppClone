@@ -1,25 +1,42 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
-import React from 'react';
-
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
 import {Colors} from '../theme/Colors';
-import {RecentStatusData} from '../data/RecentStatusData';
+import {ViewedStatusData} from '../data/ViewedStatusData';
+import FullModal from '../utils/FullModal';
 
 const RecentStatus = () => {
+  const [showStatusModal, setShowStatusModal] = useState(true);
+  const setTimeUp = itemId => {
+    setShowStatusModal(prev => ({...prev, [itemId]: false}));
+  };
+  const viewStatus = itemId => {
+    setShowStatusModal(prev => ({...prev, [itemId]: true}));
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.recentUpdates}>Recent Updates</Text>
-      {RecentStatusData.map(item => (
-        <>
-          <View style={styles.storySection}>
-            <View style={styles.imageStory}>
-              <Image source={item.storyImg} style={styles.statusStyle} />
+      {ViewedStatusData.map(item => (
+        <View key={item.id}>
+          <TouchableOpacity onPress={() => viewStatus(item.id)}>
+            <View style={styles.storySection}>
+              <View style={styles.imageStory}>
+                <Image source={item.storyImg} style={styles.statusStyle} />
+              </View>
+              <View>
+                <Text style={styles.userName}>{item.name}</Text>
+                <Text style={styles.time}>{item.time}</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.userName}>{item.name}</Text>
-              <Text style={styles.time}>{item.time}</Text>
-            </View>
-          </View>
-        </>
+          </TouchableOpacity>
+          <FullModal
+            showStatusModal={showStatusModal[item.id] || false}
+            setShowStatusModal={value =>
+              setShowStatusModal(prev => ({...prev, [item.id]: value}))
+            }
+            item={item}
+            setTimeUp={() => setTimeUp(item.id)}
+          />
+        </View>
       ))}
     </View>
   );
@@ -27,10 +44,12 @@ const RecentStatus = () => {
 
 export default RecentStatus;
 const styles = StyleSheet.create({
+  container: {
+    gap: 10,
+  },
   recentUpdates: {
     color: Colors.textGrey,
     fontSize: 14,
-    paddingBottom: 10,
     paddingTop: 20,
   },
   statusStyle: {

@@ -32,7 +32,7 @@ const ChatHeader = () => {
           size={22}
         />
         <VectorIcon
-          type="Ionicons"
+          type="MaterialIcons"
           name="call"
           color={Colors.white}
           size={20}

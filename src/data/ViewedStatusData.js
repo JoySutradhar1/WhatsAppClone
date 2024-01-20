@@ -2,7 +2,7 @@ import status1 from '../assets/status1.jpg';
 import status2 from '../assets/p2.jpg';
 import profile2 from '../assets/p2.jpg';
 import profile1 from '../assets/p1.jpg';
-export const RecentStatusData = [
+export const ViewedStatusData = [
   {
     id: 1,
     name: 'Sushanto',
